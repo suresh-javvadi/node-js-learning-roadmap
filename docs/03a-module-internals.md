@@ -36,6 +36,27 @@ x();
 
 ## 5-Step Mechanism of require()
 
+```mermaid
+flowchart TD
+    A[require called] --> CA{Already\nCached?}
+    CA -- Yes --> RET[Return Cached\nmodule.exports]
+    CA -- No --> R[1. Resolve\nLocal file? Core module?\nFile type .js or .json]
+    R --> L[2. Load\nRead file content]
+    L --> W[3. Wrap\nWrap code in IIFE]
+    W --> E[4. Evaluate\nExecute code\nReturn module.exports]
+    E --> C[5. Cache\nStore result for\nfuture require calls]
+    C --> RET2[Return module.exports]
+
+    style A fill:#4a90d9,color:#fff
+    style R fill:#7b68ee,color:#fff
+    style L fill:#7b68ee,color:#fff
+    style W fill:#7b68ee,color:#fff
+    style E fill:#7b68ee,color:#fff
+    style C fill:#2ecc71,color:#fff
+    style RET fill:#e8a838,color:#fff
+    style RET2 fill:#2ecc71,color:#fff
+```
+
 1. **Resolving the module:** checks whether the path is a local file (`./path`), a `node:` core module, and the type of file (`.js` or `.json`)
 2. **Loading:** loads the file content from the module
 3. **Wrapping:** wraps the module code inside an IIFE

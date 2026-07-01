@@ -4,6 +4,32 @@
 
 When code is given to the V8 engine, it goes through several stages.
 
+```mermaid
+flowchart TD
+    A[JavaScript Code] --> B[Lexical Analysis\nTokenization]
+    B --> C[Tokens]
+    C --> D[Syntax Analysis]
+    D --> SE[Syntax Error]
+    D --> E[AST\nAbstract Syntax Tree]
+    E --> F[Ignition Interpreter]
+    F --> G[Bytecode]
+    G --> I[Execution]
+    I -- Hot Code Detected --> J[TurboFan Compiler]
+    J --> K[Optimized Machine Code]
+    K --> I
+    K -- De-optimization --> F
+    GC[Garbage Collectors\nOrinoco · OilPan · Scavenger · MCompact] -.->|Memory Management| I
+
+    style A fill:#4a90d9,color:#fff
+    style E fill:#e8a838,color:#fff
+    style F fill:#7b68ee,color:#fff
+    style J fill:#7b68ee,color:#fff
+    style K fill:#2ecc71,color:#fff
+    style I fill:#2ecc71,color:#fff
+    style SE fill:#e74c3c,color:#fff
+    style GC fill:#888,color:#fff
+```
+
 ## Stage 1: Parsing
 
 ### Lexical Analysis (Tokenization)

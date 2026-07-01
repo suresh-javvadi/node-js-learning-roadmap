@@ -97,6 +97,28 @@ The JS engine is very good at running synchronous code but it does not know how 
 
 This is called **non-blocking I/O**.
 
+```mermaid
+flowchart TD
+    A[JavaScript Code] --> B[V8 Engine\nCall Stack]
+    B --> SC[Sync Code\nExecutes immediately]
+    B --> AC[Async Task Encountered\nsetTimeout · fs.readFile · https.get]
+    AC --> LB[libuv]
+    LB -->|Sends task| OS[OS Operations\nFile System · Network · Timers]
+    OS -->|Returns result| CB[Callback + Result\nStored in libuv]
+    SC --> WT[Call Stack\nEmpty]
+    CB --> WT
+    WT --> PB[Push Callback to V8]
+    PB --> B
+
+    style B fill:#4a90d9,color:#fff
+    style LB fill:#7b68ee,color:#fff
+    style OS fill:#e8a838,color:#fff
+    style SC fill:#2ecc71,color:#fff
+    style PB fill:#2ecc71,color:#fff
+    style CB fill:#888,color:#fff
+    style WT fill:#e74c3c,color:#fff
+```
+
 ```js
 const https = require("https");
 const fs = require("fs");
