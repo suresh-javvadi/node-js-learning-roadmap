@@ -11,6 +11,30 @@ There are two main ways to use MongoDB:
 1. **Install MongoDB locally**: download the MongoDB package, install it on your system, and use it directly from your local environment.
 2. **Use MongoDB Atlas (managed cloud)**: instead of installing locally, you let MongoDB manage the database for you in the cloud. This works on both the Community and Enterprise versions of MongoDB.
 
+```mermaid
+flowchart TD
+    A[Start] --> B{Local or Atlas?}
+    B -- Local --> C[Install MongoDB\non your system]
+    B -- Atlas --> D[Create Atlas cluster\nM0 free plan]
+    D --> E[Get connection string]
+    C --> F[Connect]
+    E --> F
+    F --> G{Compass or Node.js?}
+    G -- Compass --> H[Create DB + Collection\nin Compass UI]
+    G -- Node.js --> I[npm i mongodb\nor npm install mongoose]
+    I --> J[Connect with MongoClient\nor Mongoose]
+    H --> K[Insert Document]
+    J --> K
+    style A fill:#4a90d9,color:#fff
+    style D fill:#e8a838,color:#fff
+    style C fill:#e8a838,color:#fff
+    style E fill:#7b68ee,color:#fff
+    style H fill:#2ecc71,color:#000
+    style I fill:#2ecc71,color:#000
+    style J fill:#2ecc71,color:#000
+    style K fill:#e74c3c,color:#fff
+```
+
 ### MongoDB Editions
 
 - **Community Edition**: a free version, ideal for developers and personal projects.
