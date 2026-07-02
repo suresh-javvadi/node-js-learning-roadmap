@@ -137,4 +137,4 @@ server.listen(7104);
 
 This is the native Node way to create a server. **Express** is a framework used to create a server and handle incoming requests more easily.
 
-[server.js](../examples/08-server/server.js)
+[server.js](../examples/08-how-web-works/server.js)
