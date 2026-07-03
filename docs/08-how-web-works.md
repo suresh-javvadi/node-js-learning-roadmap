@@ -29,6 +29,18 @@ This is why cloud providers exist. **AWS (Amazon Web Services)** provides cloud-
 
 Whenever a client accesses the server, it establishes a **socket connection**. The server software listens for the request and responds with data from the server hardware, then closes the socket.
 
+```mermaid
+flowchart LR
+    C[Client\nBrowser] -->|1. Request domain| DNS[DNS Server]
+    DNS -->|2. Returns IP| C
+    C -->|3. Opens socket to IP:Port| S[Server]
+    S -->|4. Sends packets\nvia TCP/IP| C
+    S -->|5. Closes socket| C
+    style C fill:#4a90d9,color:#fff
+    style DNS fill:#e8a838,color:#000
+    style S fill:#7b68ee,color:#fff
+```
+
 - There can be multiple clients, and each client creates its own socket connection to get data. After the data is received, the socket is closed. If the client needs to make another request, a new socket connection is created, data is retrieved, and the connection is closed again.
 - When the socket is made, it uses the **TCP/IP protocol** (Transmission Control Protocol / Internet Protocol), which is a set of rules for making connections and sending data.
 

@@ -20,6 +20,27 @@ UV_THREADPOOL_SIZE=4
 
 If you make 5 simultaneous calls, 4 of them occupy the 4 threads, and the 5th waits until a thread becomes free.
 
+```mermaid
+flowchart TD
+    T1[Task 1] --> P1[Thread 1]
+    T2[Task 2] --> P2[Thread 2]
+    T3[Task 3] --> P3[Thread 3]
+    T4[Task 4] --> P4[Thread 4]
+    T5[Task 5] -->|Waits| Q[Queue]
+    P1 -->|Frees up| Q
+    Q -->|Runs next| P1
+    style T1 fill:#4a90d9,color:#fff
+    style T2 fill:#4a90d9,color:#fff
+    style T3 fill:#4a90d9,color:#fff
+    style T4 fill:#4a90d9,color:#fff
+    style T5 fill:#e74c3c,color:#fff
+    style P1 fill:#2ecc71,color:#000
+    style P2 fill:#2ecc71,color:#000
+    style P3 fill:#2ecc71,color:#000
+    style P4 fill:#2ecc71,color:#000
+    style Q fill:#e8a838,color:#000
+```
+
 ```js
 const crypto = require("crypto");
 
