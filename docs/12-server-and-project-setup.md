@@ -129,11 +129,11 @@ app.use("/home", (req, res) => {
 
 Code: [app.js](../dev-tinder/src/app.js)
 
-## Nodemon
+## Auto-Restarting the Server: node --watch and Nodemon
 
-- Nodemon solves the kill and restart server problem: it will restart your server whenever you save a file
-- Run `npm i -g nodemon` to install it globally, which helps in all other projects too
-- `nodemon src/app.js`: if you save the file, the server automatically restarts
+- Killing and restarting the server after every change is annoying. We need a watcher that restarts the server whenever a file is saved
+- **node --watch (preferred):** Node 20+ has this built in: `node --watch src/app.js` restarts the server on every save. No extra package to install, it works on any machine right after `npm install`
+- **Nodemon (alternative):** a separate package that does the same job: run `npm i -g nodemon` to install it globally, then `nodemon src/app.js`. A global install is not recorded in `package.json`, so on a new machine it must be installed again before the script works
 
 ## npm Scripts
 
@@ -143,11 +143,13 @@ Code: [app.js](../dev-tinder/src/app.js)
 "scripts": {
   "test": "echo \"Error: no test specified\" && exit 1",
   "start": "node src/app.js",
-  "dev": "nodemon src/app.js"
+  "dev": "node --watch src/app.js",
+  "dev:nodemon": "nodemon src/app.js"
 }
 ```
 
-- `npm run dev`: runs the server using nodemon (preferable during development)
-- `npm run start`: runs the server using node
+- `npm run dev`: runs the server using Node's built-in watcher (preferable during development). No extra package is needed, `--watch` ships with Node 20+, so the script works on any machine right after `npm install`
+- `npm run dev:nodemon`: runs the server using nodemon. Note that a global nodemon install is not recorded in `package.json`, so on a new machine this script needs `npm i -g nodemon` first
+- `npm run start`: runs the server using node (no restart on file changes)
 
 See the project's [package.json](../dev-tinder/package.json)
