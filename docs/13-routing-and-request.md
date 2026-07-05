@@ -9,7 +9,7 @@ flowchart TD
     C -->|No| D[Move to the next route below]
     D --> C
     C -->|Yes, first match wins| E[That request handler<br>sends the response]
-    C -->|No route matched| F[404: Cannot GET /path]
+    C -->|No route matched| F["404: Cannot GET /path"]
 ```
 
 - When a request comes in with a route, the first matching request handler sends the response

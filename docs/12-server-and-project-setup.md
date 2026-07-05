@@ -85,7 +85,7 @@ flowchart LR
     A[Browser request<br>localhost:3000/...] --> B[Express server<br>listening on port 3000]
     B --> C{Route matching}
     C -->|/home| D["res.send('Home home home!')"]
-    C -->|/me| E["res.send("Hello, I'm Suresh Javvadi!")"]
+    C -->|/me| E["res.send('Hello, I am Suresh Javvadi!')"]
     C -->|no match| F["404: Cannot GET /path"]
 ```
 
