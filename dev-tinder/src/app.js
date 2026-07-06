@@ -63,6 +63,211 @@ app.get("/username/:userId", (req, res) => {
   });
 });
 
+app.use("/middleware", (req, res) => {
+  console.log("Middleware executed");
+  // res.send("Middleware executed");
+});
+
+app.use(
+  "/middlewareMulti",
+  (req, res, next) => {
+    console.log("Middleware executed");
+    next(); // call next middleware
+  },
+  (req, res, next) => {
+    console.log("2 Middleware executed");
+    res.send(" 2 Middleware executed");
+    next();
+  },
+);
+
+app.use(
+  "/middlewareMultiWithResponse",
+  (req, res, next) => {
+    console.log("Middleware executed");
+    res.send("Middleware executed");
+    next(); // call next middleware
+  },
+  (req, res, next) => {
+    console.log("2 Middleware executed");
+    res.send(" 2 Middleware executed");
+  },
+);
+
+app.use(
+  "/middlewareMultiWithoutHandler",
+  (req, res, next) => {
+    console.log("Middleware executed");
+    next(); // call next middleware
+  },
+  (req, res, next) => {
+    console.log("2 Middleware executed");
+    next();
+  },
+);
+
+// app.use("/path", [rh1, rh2, rh3, rh4, rh5]) wrap all and pass
+
+// app.use("/path", rh1, [rh2, rh3], rh4, rh5) wrap some and pass
+
+app.use("/wrapall", [
+  (req, res, next) => {
+    console.log("Middleware executed");
+    next(); // call next middleware
+  },
+  (req, res, next) => {
+    console.log("2 Middleware executed");
+    next();
+  },
+  (req, res, next) => {
+    console.log("3 Middleware executed");
+    next();
+  },
+  (req, res, next) => {
+    console.log("4 Middleware executed");
+    next();
+  },
+  (req, res, next) => {
+    console.log("5 Middleware executed");
+    res.send("5 Middleware executed with wrap all");
+  },
+]);
+
+app.use(
+  "/wrapsome",
+  (req, res, next) => {
+    console.log("Middleware executed");
+    next(); // call next middleware
+  },
+  (req, res, next) => {
+    console.log("2 Middleware executed");
+    next();
+  },
+  [
+    (req, res, next) => {
+      console.log("3 Middleware executed");
+      next();
+    },
+    (req, res, next) => {
+      console.log("4 Middleware executed");
+      next();
+    },
+  ],
+  (req, res, next) => {
+    console.log("5 Middleware executed");
+    res.send("5 Middleware executed with wrap some");
+  },
+);
+
+app.use("/independent", (req, res, next) => {
+  console.log("Independent Middleware executed");
+  next();
+});
+app.use("/independent", (req, res, next) => {
+  console.log("2 Independent Middleware executed");
+  res.send("2 Independent Middleware executed");
+});
+
+// 1, 2,3 are middlewares
+app.use("/middlewares", (req, res, next) => {
+  console.log("1 Middleware executed");
+  next(); // call next middleware
+});
+app.use("/middlewares", (req, res, next) => {
+  console.log("2 Middleware executed");
+  next(); // call next middleware
+});
+app.use("/middlewares", (req, res, next) => {
+  console.log("3 Middleware executed");
+  next(); // call next middleware
+});
+app.use("/middlewares", (req, res, next) => {
+  console.log("4 Middleware executed");
+  res.send("4 Middleware executed");
+});
+
+// // Actual importance and use case of middleware
+
+// app.get("/admin/getalldata", (req, res) => {
+//   const token = "admin-token"; //req.headers.authorization; // get token from headers
+//   if (token !== "admin-token") {
+//     return res.status(401).send("Unauthorized request ");
+//   }
+//   res.send("All data retrieved");
+// });
+
+// app.delete("/admin/deleteuser", (req, res) => {
+//   const token = "admin-token"; //req.headers.authorization; // get token from headers
+//   if (token !== "admin-token") {
+//     return res.status(401).send("Unauthorized request");
+//   }
+//   res.send("User deleted");
+// });
+
+// // to stop code redundancy, we can use middleware to check for authorization
+
+// app.use("/admin", (req, res, next) => {
+//   console.log("admin auth getting check");
+//   const token = "admin-tokenss"; //req.headers.authorization; // get token from headers
+//   if (token !== "admin-token") {
+//     return res.status(401).send("Unauthorized request");
+//   }
+//   next();
+// });
+
+// app.get("/admin/getalldata", (req, res) => {
+//   res.send("All data retrieved"); // this will be executed only if the admin auth middleware passes
+// });
+
+// app.delete("/admin/deleteuser", (req, res) => {
+//   res.send("User deleted");
+// });
+
+// standard way to use middleware is to create a separate file for it and import it in the main file
+
+const { adminAuth, userAuth } = require("./middlewares/auth");
+
+app.use("/admin", adminAuth);
+
+app.get("/admin/getalldata", (req, res) => {
+  res.send("All data retrieved"); // this will be executed only if the admin auth middleware passes
+});
+
+app.delete("/admin/deleteuser", (req, res) => {
+  res.send("User deleted");
+});
+
+app.get("/user/getprofile", userAuth, (req, res) => {
+  res.send("User profile retrieved"); // this will be executed only if the user auth middleware passes
+});
+
+app.get("/user/login", (req, res) => {
+  res.send("User logged in");
+});
+
+// Error handling
+
+app.get("/errorhandler", (req, res) => {
+  throw new Error("This is a test error");
+});
+
+app.get("/trycatcherror", (req, res) => {
+  try {
+    // code that may throw an error
+    throw new Error("This is a test error");
+  } catch (err) {
+    console.error(err.stack);
+    res.status(500).send("Something went wrong contact support!");
+  }
+});
+
+// error middleware only catches errors from routes registered above it, so keep it last
+app.use("/", (err, req, res, next) => {
+  console.error(err.stack);
+  // store the error in a log file or database for further analysis
+  res.status(500).send("Something went wrong!");
+});
+
 app.listen(3000, () => {
   console.log("Server is listening on port 3000");
 }); // listen to port 3000, we can request the server using localhost:3000
