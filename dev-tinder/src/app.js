@@ -268,6 +268,36 @@ app.use("/", (err, req, res, next) => {
   res.status(500).send("Something went wrong!");
 });
 
-app.listen(3000, () => {
-  console.log("Server is listening on port 3000");
-}); // listen to port 3000, we can request the server using localhost:3000
+// Database, schema and model
+
+const { connectDB } = require("./config/database");
+const User = require("./models/user");
+
+app.post("/signup", async (req, res) => {
+  const userObj = {
+    firstName: "Virat",
+    lastName: "Kohli",
+    emailId: "virat@kohli.com",
+  };
+  // Creating a new instance of the user model
+  const user = new User(userObj);
+  try {
+    await user.save(); // saving the instance into database
+    res.send("User add successfully");
+  } catch (error) {
+    res.status(400).send("Error saving user" + error.message);
+  }
+});
+
+const startServer = async () => {
+  try {
+    await connectDB();
+    console.log("Database connected successfully!!");
+    app.listen(3000, () => {
+      console.log("Server is listening on port 3000");
+    }); // listen to port 3000, we can request the server using localhost:3000
+  } catch (error) {
+    console.error("Error connecting to MongoDB");
+  }
+};
+startServer();
