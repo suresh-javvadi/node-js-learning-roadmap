@@ -476,6 +476,51 @@ app.patch("/userbyidwithapivalidations/:userId", async (req, res) => {
   }
 });
 
+// password encryption
+
+const { signupValidation } = require("./utils/validation");
+const bcrypt = require("bcrypt");
+
+app.post("/usersignup", async (req, res) => {
+  const { firstName, lastName, emailId, password } = req.body;
+
+  try {
+    await signupValidation(req); // validate first
+    const encryptedPassword = await bcrypt.hash(password, 10); // then hash
+    const user = new User({
+      firstName,
+      lastName,
+      emailId,
+      password: encryptedPassword,
+    });
+
+    await user.save();
+    res.send("User added successfully!");
+  } catch (error) {
+    res.send("ERROR: " + error.message);
+  }
+});
+
+app.post("/userlogin", async (req, res) => {
+  const { emailId, password } = req.body;
+
+  try {
+    const user = await User.findOne({ emailId: emailId });
+    if (!user) {
+      throw new Error("Invalid credentials");
+    }
+
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) {
+      throw new Error("Invalid credentials");
+    }
+
+    res.send("Login successfully");
+  } catch (error) {
+    res.status(400).send("ERROR: " + error.message);
+  }
+});
+
 const startServer = async () => {
   try {
     await connectDB();
