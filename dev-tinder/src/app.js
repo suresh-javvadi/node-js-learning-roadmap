@@ -388,6 +388,94 @@ app.patch("/userbyemailid", async (req, res) => {
   }
 });
 
+app.patch("/userbyidwithvalidations", async (req, res) => {
+  const userId = req.body.userId;
+  const data = req.body;
+
+  try {
+    const user = await User.findByIdAndUpdate(userId, data, {
+      runValidators: true,
+    });
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.send("User updated successfully");
+    }
+  } catch (error) {
+    res.send("Update failed " + error.message);
+  }
+});
+
+// API Level validations
+
+app.patch("/userbyidwithapivalidations", async (req, res) => {
+  const userId = req.body.userId;
+  const data = req.body;
+
+  try {
+    const allowedUpdates = [
+      "userId",
+      "age",
+      "gender",
+      "photoUrl",
+      "about",
+      "skills",
+    ];
+
+    const isUpdateAllowed = Object.keys(data).every((k) =>
+      allowedUpdates.includes(k),
+    );
+
+    if (!isUpdateAllowed) {
+      throw new Error("Update is not allowed");
+    }
+
+    const user = await User.findByIdAndUpdate(userId, data, {
+      runValidators: true,
+    });
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.send("User updated successfully");
+    }
+  } catch (error) {
+    res.send("Update failed " + error.message);
+  }
+});
+
+app.patch("/userbyidwithapivalidations/:userId", async (req, res) => {
+  const userId = req.params?.userId;
+  const data = req.body;
+
+  try {
+    const allowedUpdates = ["age", "gender", "photoUrl", "about", "skills"];
+
+    const isUpdateAllowed = Object.keys(data).every((k) =>
+      allowedUpdates.includes(k),
+    );
+
+    if (!isUpdateAllowed) {
+      throw new Error("Update is not allowed");
+    }
+
+    // guard the field first: data.skills is undefined when the body has no skills
+    if (data.skills && data.skills.length > 10) {
+      throw new Error("Skill cannot be more than 10");
+    }
+
+    const user = await User.findByIdAndUpdate(userId, data, {
+      runValidators: true,
+    });
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.send("User updated successfully");
+    }
+  } catch (error) {
+    res.send("Update failed " + error.message);
+  }
+});
+
 const startServer = async () => {
   try {
     await connectDB();

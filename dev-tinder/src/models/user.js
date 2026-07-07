@@ -1,25 +1,66 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 
-const userSchema = new mongoose.Schema({
-  firstName: {
-    type: String,
+const userSchema = new mongoose.Schema(
+  {
+    firstName: {
+      type: String,
+      required: true,
+      minLength: 3,
+      maxLength: 40,
+    },
+    lastName: {
+      type: String,
+      minLength: 1,
+      maxLength: 40,
+    },
+    emailId: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Email is not valid");
+        }
+      },
+    },
+    password: {
+      type: String,
+      required: true,
+      minLength: 8,
+    },
+    age: {
+      type: Number,
+      min: 18,
+    },
+    gender: {
+      type: String,
+      validate(value) {
+        if (!["male", "female", "others"].includes(value)) {
+          throw new Error("Gender is not valid");
+        }
+      },
+    },
+    photoUrl: {
+      type: String,
+      default:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7T7-cPcLcfLZdRk4OOsOP0xgE50xblN3JILN5rfvC0g&s=10",
+    },
+    about: {
+      type: String,
+      default: "I am a developer",
+      maxLength: 150,
+    },
+    skills: {
+      type: [String],
+    },
   },
-  lastName: {
-    type: String,
+  {
+    timestamps: true,
   },
-  emailId: {
-    type: String,
-  },
-  password: {
-    type: String,
-  },
-  age: {
-    type: Number,
-  },
-  gender: {
-    type: String,
-  },
-});
+);
 
 // const UserModel = mongoose.model("User", userSchema);
 
