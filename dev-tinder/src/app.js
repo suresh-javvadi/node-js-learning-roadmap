@@ -273,6 +273,8 @@ app.use("/", (err, req, res, next) => {
 const { connectDB } = require("./config/database");
 const User = require("./models/user");
 
+app.use(express.json()); // every request passes through it
+
 app.post("/signup", async (req, res) => {
   const userObj = {
     firstName: "Virat",
@@ -286,6 +288,103 @@ app.post("/signup", async (req, res) => {
     res.send("User add successfully");
   } catch (error) {
     res.status(400).send("Error saving user" + error.message);
+  }
+});
+
+// Dynamic api request
+
+app.post("/signupdynamic", async (req, res) => {
+  console.log(req.body);
+  const user = new User(req.body);
+
+  try {
+    await user.save();
+    res.send("User add successfully");
+  } catch (error) {
+    res.status(400).send("Error saving user" + error.message);
+  }
+});
+
+// get user by email
+
+app.get("/userbyemail", async (req, res) => {
+  const userEmailId = req.body.emailId;
+
+  try {
+    const user = await User.find({ emailId: userEmailId });
+
+    if (user.length === 0) {
+      res.status(404).send("User not found");
+    } else {
+      res.send(user);
+    }
+  } catch (error) {
+    res.send("Something went wrong");
+  }
+});
+
+app.get("/feed", async (req, res) => {
+  try {
+    const users = await User.find({});
+
+    // find({}) returns an empty array when there are no documents, and [] is truthy
+    if (users.length === 0) {
+      res.status(404).send("Users not found");
+    } else {
+      res.send(users);
+    }
+  } catch (error) {
+    res.send("Something went wrong");
+  }
+});
+
+app.delete("/userbyid", async (req, res) => {
+  const userId = req.body.userId;
+
+  try {
+    const user = await User.findByIdAndDelete(userId);
+    console.log(user);
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.send("User deleted successfully");
+    }
+  } catch (error) {
+    res.send("Something went wrong");
+  }
+});
+
+app.patch("/userbyid", async (req, res) => {
+  const userId = req.body.userId;
+  const data = req.body;
+
+  try {
+    const user = await User.findByIdAndUpdate(userId, data);
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.send("User updated successfully");
+    }
+  } catch (error) {
+    res.send("Something went wrong");
+  }
+});
+
+app.patch("/userbyemailid", async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { emailId: req.body.emailId },
+      req.body,
+      { returnDocument: "before" }, // this will return the doc before update, After will give doc after update
+    );
+    console.log(user);
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.send("User updated successfully");
+    }
+  } catch (error) {
+    res.send("Something went wrong");
   }
 });
 
