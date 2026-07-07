@@ -4,7 +4,7 @@
 
 - You should never save passwords in a readable format: it causes many security issues
 - You need to store the encrypted form of the password. So at insert time, encrypt the password and pass it to the database
-- Note on terminology: bcrypt actually does **hashing**, not encryption. Encryption is reversible (it can be decrypted), while a hash is one-way: nobody, including us, can turn the stored hash back into the password. That one-way property is exactly what makes it safe
+- What actually goes to the database is the **hash** of the password: even if someone gets access to the database, they see only hashes, and the original password is never recoverable from them
 
 ## Validating the Signup Data First
 
@@ -53,6 +53,9 @@ const encryptedPassword = await bcrypt.hash(password, 10);
 - 1st parameter: pass your plain password
 - 2nd parameter: the number of salt rounds
 - It will give the hash for the password. Store that in the database: no one can figure out the password with the naked eye
+- Note on terminology: bcrypt actually does **hashing**, not encryption.
+  - Encryption is reversible (it can be decrypted)
+  - Hash is one-way: nobody, including us, can turn the stored hash back into the password. That one-way property is exactly what makes it safe
 
 ![Encrypted password stored in the database](../assets/images/18-encrypt-password.png)
 
@@ -131,6 +134,8 @@ flowchart TD
     E -->|true| F[Login success]
     E -->|false| G[Invalid credentials]
     end
+    style Signup fill:transparent,stroke:#888
+    style Login fill:transparent,stroke:#888
 ```
 
 Code: [app.js](../dev-tinder/src/app.js)
