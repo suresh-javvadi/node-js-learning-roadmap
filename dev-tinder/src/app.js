@@ -1,3 +1,6 @@
+// Learning scratchpad for episodes 12-19 (see docs/). Kept as a reference.
+// The real app entry point is server.js.
+
 const express = require("express");
 
 const app = express(); // create an server instance using express
