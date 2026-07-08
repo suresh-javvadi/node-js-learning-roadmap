@@ -521,6 +521,70 @@ app.post("/userlogin", async (req, res) => {
   }
 });
 
+// Authentication
+
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+
+app.use(cookieParser());
+
+app.post("/login", async (req, res) => {
+  const { emailId, password } = req.body;
+
+  try {
+    const user = await User.findOne({ emailId: emailId });
+    if (!user) {
+      throw new Error("Invalid credentials");
+    }
+
+    // const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    const isPasswordValid = await user.validatePassword(password);
+
+    if (!isPasswordValid) {
+      throw new Error("Invalid credentials");
+    }
+
+    // const token = await jwt.sign({ _id: user._id }, "Sxxxxxx", {
+    //   expiresIn: "7d",
+    // });
+
+    const token = await user.getJWT();
+
+    res.cookie("token", token, { expires: new Date(Date.now() + 900000) });
+    res.send("Login successfully");
+  } catch (error) {
+    res.status(400).send("ERROR: " + error.message);
+  }
+});
+
+app.get("/profile", async (req, res) => {
+  const { token } = req.cookies;
+
+  try {
+    if (!token) {
+      throw new Error("Token is not valid!");
+    }
+
+    const decodeToken = await jwt.verify(token, "Sxxxxxx");
+
+    const { _id } = decodeToken;
+
+    const user = await User.findById(_id);
+
+    if (!user) {
+      throw new Error("User not found, please login again");
+    }
+    res.send(user);
+  } catch (error) {
+    res.status(400).send("ERROR: " + error.message);
+  }
+});
+
+app.post("/sendconnectionrequest", userAuth, async (req, res) => {
+  res.send(req.user.firstName + " Send the Connection request");
+});
+
 const startServer = async () => {
   try {
     await connectDB();
