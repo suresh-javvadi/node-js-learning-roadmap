@@ -11,10 +11,12 @@ const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const { userAuth } = require("./middlewares/auth");
 const requestRouter = require("./routes/request");
+const userRouter = require("./routes/user");
 
 app.use("/", authRouter);
 app.use("/", userAuth, profileRouter);
 app.use("/", userAuth, requestRouter);
+app.use("/", userAuth, userRouter);
 
 const startServer = async () => {
   try {
