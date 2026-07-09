@@ -76,15 +76,15 @@ Code: [routes/request.js](../dev-tinder/src/routes/request.js)
 - Like schema methods, there is a middleware called `pre`. It runs before `save()`
 
 ```js
-connectionRequestSchema.pre("save", function (next) {
+connectionRequestSchema.pre("save", function () {
   if (this.fromUserId.equals(this.toUserId)) {
     throw new Error("Can't send request to yourself");
   }
-  next();
 });
 ```
 
-- `next()` is needed on the success path to let the save continue (when `fromUserId` is not equal to `toUserId`). It is only skipped on the `throw` path, because the thrown exception aborts the save and control never reaches `next()`. In general, since this is a middleware, `next()` is what moves control to the next step
+- **Mongoose 9 note**: in Mongoose 9 (this project is on 9.7.3), `pre` middleware no longer receives a `next` parameter. Mongoose 7-era code writes `function (next) { ...; next(); }`, but on Mongoose 9 the `next` value is `undefined`, so calling `next()` throws `next is not a function`. The fix is to drop `next` entirely
+- Without `next`, throwing still blocks the save, and the hook continues automatically when nothing is thrown. If a hook needs async work, make it an `async function` and Mongoose waits on the returned promise
 
 ```mermaid
 flowchart TD
