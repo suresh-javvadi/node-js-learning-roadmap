@@ -16,4 +16,16 @@ const signupValidation = (req) => {
   }
 };
 
-module.exports = { signupValidation };
+const validateProfileEditData = (req) => {
+  const allowedFields = ["age", "gender", "photoUrl", "about", "skills"];
+
+  const isEditAllowed = Object.keys(req.body).every((k) =>
+    allowedFields.includes(k),
+  );
+
+  const isURLValid = validator.isURL(req.body?.photoUrl);
+
+  return { isEditAllowed, isURLValid };
+};
+
+module.exports = { signupValidation, validateProfileEditData };

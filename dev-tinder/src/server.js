@@ -7,6 +7,13 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
+const authRouter = require("./routes/auth");
+const profileRouter = require("./routes/profile");
+const { userAuth } = require("./middlewares/auth");
+
+app.use("/", authRouter);
+app.use("/", userAuth, profileRouter);
+
 const startServer = async () => {
   try {
     await connectDB();
