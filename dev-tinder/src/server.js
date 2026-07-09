@@ -10,9 +10,11 @@ app.use(cookieParser());
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const { userAuth } = require("./middlewares/auth");
+const requestRouter = require("./routes/request");
 
 app.use("/", authRouter);
 app.use("/", userAuth, profileRouter);
+app.use("/", userAuth, requestRouter);
 
 const startServer = async () => {
   try {
