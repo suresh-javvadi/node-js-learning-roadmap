@@ -60,4 +60,38 @@ requestRouter.post("/request/send/:status/:toUserId", async (req, res) => {
   }
 });
 
+requestRouter.patch("/request/review/:status/:requestId", async (req, res) => {
+  const allowedStatus = ["accepted", "rejected"];
+  const loggedInUser = req?.user;
+
+  try {
+    const { status, requestId } = req.params;
+
+    if (!allowedStatus.includes(status)) {
+      return res.status(400).json({ message: `${status} is invalid status` });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(requestId)) {
+      return res.status(400).json({ message: `Invalid  request id` });
+    }
+
+    const connectionRequest = await ConnectionRequestModel.findOne({
+      _id: requestId,
+      toUserId: loggedInUser._id,
+      status: "interested",
+    });
+
+    if (!connectionRequest) {
+      return res.status(400).json({ message: "request not found" });
+    }
+
+    connectionRequest.status = status;
+    const data = await connectionRequest.save();
+
+    res.json({ message: `Request ${status}`, data });
+  } catch (error) {
+    res.status(400).send("ERROR " + error.message);
+  }
+});
+
 module.exports = requestRouter;

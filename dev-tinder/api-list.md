@@ -15,7 +15,7 @@
 ## connectionRequestRouter
 
 - POST /request/send/:status/:toUserId: send a request, status is `interested` or `ignored`
-- POST /request/review/:status/:requestId: review a received request, status is `accepted` or `rejected`
+- PATCH /request/review/:status/:requestId: review a received request, status is `accepted` or `rejected`
 
 ## userRouter
 
