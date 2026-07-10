@@ -62,7 +62,7 @@ flowchart TD
     C -->|Connection error| F[Log the error<br>server never starts]
 ```
 
-Code: [config/database.js](../dev-tinder/src/config/database.js), [app.js](../dev-tinder/src/app.js)
+Code: [config/database.js](../../dev-tinder/src/config/database.js), [app.js](../../dev-tinder/src/app.js)
 
 ## Schema
 
@@ -107,7 +107,7 @@ module.exports = UserModel;
 
 - Pass the name and the schema definition
 
-Code: [models/user.js](../dev-tinder/src/models/user.js)
+Code: [models/user.js](../../dev-tinder/src/models/user.js)
 
 ## Writing the First API to Create Documents
 
@@ -131,7 +131,7 @@ app.post("/signup", async (req, res) => {
   - If the database is not there, then the database will be created in the cluster with the name in the URL
   - A collection is also created by pluralizing the model name, and then the document will be reflected in the database/cluster
 
-![User document in Compass](../assets/images/15-compass.png)
+![User document in Compass](../../assets/images/15-compass.png)
 
 - `_id` and `__v` are extra fields added to every document:
   - `_id`: a unique id/string in the database, added by MongoDB
@@ -160,4 +160,4 @@ app.post("/signup", async (req, res) => {
 });
 ```
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)

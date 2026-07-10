@@ -24,7 +24,7 @@ node app.js // here app.js is the entry point to run the code
 require("./xyz.js"); // executes the code in xyz.js file and then continues with the below code
 ```
 
-- Example file: [app.js](../examples/03-modules/app.js)
+- Example file: [app.js](../../examples/03-modules/app.js)
 
 ## Module Scope (Privacy)
 
@@ -73,7 +73,7 @@ module.exports.x = x;
 module.exports.calculateSum = calculateSum;
 ```
 
-- Example file: [sum.js](../examples/03-modules/sum.js)
+- Example file: [sum.js](../../examples/03-modules/sum.js)
 
 ## Importing with require
 
@@ -112,7 +112,7 @@ calculateAddition(a, b);
 calculateMultiply(a, b);
 ```
 
-- Example files: [calculate/index.js](../examples/03-modules/calculate/index.js), [calculate/addition.js](../examples/03-modules/calculate/addition.js), [calculate/multiply.js](../examples/03-modules/calculate/multiply.js)
+- Example files: [calculate/index.js](../../examples/03-modules/calculate/index.js), [calculate/addition.js](../../examples/03-modules/calculate/addition.js), [calculate/multiply.js](../../examples/03-modules/calculate/multiply.js)
 
 ## Importing JSON and Core Modules
 
@@ -126,7 +126,7 @@ console.log(data);
 const util = require("node:util"); // importing Node's core module
 ```
 
-- Example file: [data.json](../examples/03-modules/data.json)
+- Example file: [data.json](../../examples/03-modules/data.json)
 
 ## CJS vs ESM
 
@@ -175,4 +175,4 @@ z = 30.5; // works fine in CJS, no error
 // z = 30.5; // ReferenceError in ESM strict mode
 ```
 
-- Example files: [esm/app.js](../examples/03-modules/esm/app.js), [esm/sum.js](../examples/03-modules/esm/sum.js)
+- Example files: [esm/app.js](../../examples/03-modules/esm/app.js), [esm/sum.js](../../examples/03-modules/esm/sum.js)

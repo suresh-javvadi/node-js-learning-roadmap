@@ -70,7 +70,7 @@ flowchart LR
     P3["page 3<br>skip 20, limit 10"] --> D3["docs 21 to 30"]
 ```
 
-Code: [routes/user.js](../dev-tinder/src/routes/user.js)
+Code: [routes/user.js](../../dev-tinder/src/routes/user.js)
 
 ## Pagination Metadata
 
@@ -106,7 +106,7 @@ res.json({
 - `hasNextPage`: `page * limit < total` is true while the last item on this page is still below the total. Page 1 with limit 10 and total 25 gives `10 < 25` (true); the last page gives `30 < 25` (false)
 - This costs one extra query (the count). For huge collections that is a small trade-off; for this app it is negligible
 
-Code: [routes/user.js](../dev-tinder/src/routes/user.js)
+Code: [routes/user.js](../../dev-tinder/src/routes/user.js)
 
 ## Query Operators
 

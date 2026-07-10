@@ -17,7 +17,7 @@
 - REPL is similar to a browser console
 - But generally, we use a code editor (VS Code) to write the code
 
-![REPL demo](../assets/images/02-repl-demo.png)
+![REPL demo](../../assets/images/02-repl-demo.png)
 
 ## Writing Code in VS Code
 
@@ -26,7 +26,7 @@
 - Create a new file named `02-nodejs-installation.js` inside the folder
 - To open terminal in VS Code use shortcut **Ctrl + backtick**, or use the system terminal
 - Navigate to the file's parent folder and run: `node 02-nodejs-installation.js`
-- Example file: [02-nodejs-installation.js](../examples/02-nodejs-installation.js)
+- Example file: [02-nodejs-installation.js](../../examples/02-nodejs-installation.js)
 
 ## Global Object in Node.js
 

@@ -78,7 +78,7 @@ console.log("The result is:", c);
 console.log("The End");
 ```
 
-[sync.js](../examples/04-libuv/sync.js)
+[sync.js](../../examples/04-libuv/sync.js)
 
 ## How Node.js Makes JS Asynchronous (libuv)
 
@@ -152,7 +152,7 @@ console.log("The result is:", c);
 console.log("The End");
 ```
 
-[async.js](../examples/04-libuv/async.js)
+[async.js](../../examples/04-libuv/async.js)
 
 **Important:** libuv pushes callbacks to V8 only when the call stack is empty. This means any callback executes only after all synchronous code has finished, even if libuv already has the result.
 
@@ -206,7 +206,7 @@ console.log("The result is:", c);
 console.log("The End");
 ```
 
-[blocking.js](../examples/04-libuv/blocking.js)
+[blocking.js](../../examples/04-libuv/blocking.js)
 
 Here the main thread is blocked until `pbkdf2Sync` generates the key. Even though the JS engine offloads the task to libuv, it waits for the result to come back, so the main thread is blocked.
 
@@ -243,7 +243,7 @@ console.log("The result is:", c);
 console.log("The End");
 ```
 
-[setTimeoutZero.js](../examples/04-libuv/setTimeoutZero.js)
+[setTimeoutZero.js](../../examples/04-libuv/setTimeoutZero.js)
 
 Output order:
 

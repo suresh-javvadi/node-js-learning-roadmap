@@ -84,7 +84,7 @@ module.exports = authRouter;
 
 - Logout works by overwriting the cookie with an already-expired date, so the browser drops it
 
-Code: [routes/auth.js](../dev-tinder/src/routes/auth.js)
+Code: [routes/auth.js](../../dev-tinder/src/routes/auth.js)
 
 ## Mounting Routers in server.js
 
@@ -111,7 +111,7 @@ flowchart TD
     D --> E[No router matched<br>404]
 ```
 
-Code: [server.js](../dev-tinder/src/server.js)
+Code: [server.js](../../dev-tinder/src/server.js)
 
 ## Protecting a Router with Middleware
 
@@ -138,7 +138,7 @@ profileRouter.get("/profile/view", (req, res) => {
 });
 ```
 
-Code: [server.js](../dev-tinder/src/server.js), [routes/profile.js](../dev-tinder/src/routes/profile.js)
+Code: [server.js](../../dev-tinder/src/server.js), [routes/profile.js](../../dev-tinder/src/routes/profile.js)
 
 ## Sending a JSON Response
 
@@ -177,4 +177,4 @@ profileRouter.patch("/profile/edit", async (req, res) => {
 - The edit route copies the allowed fields from `req.body` onto the logged in user, saves, and returns the updated user in the JSON response
 - You could also update using `User.findByIdAndUpdate(id, req.body)` (the commented line), but that is not preferred. Modifying the instance and calling `save()` is the good way, because `save()` runs the schema validations and any pre/post save hooks (middleware). `findByIdAndUpdate` skips those by default
 
-Code: [routes/profile.js](../dev-tinder/src/routes/profile.js)
+Code: [routes/profile.js](../../dev-tinder/src/routes/profile.js)

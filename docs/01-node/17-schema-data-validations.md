@@ -33,7 +33,7 @@ firstName: {
 
 - If those fields are not passed, the data will not be inserted into the document and it throws an error
 
-![Required field validation error](../assets/images/17-validation-error.png)
+![Required field validation error](../../assets/images/17-validation-error.png)
 
 ### unique
 
@@ -151,7 +151,7 @@ const userSchema = new mongoose.Schema(
 );
 ```
 
-Code: [models/user.js](../dev-tinder/src/models/user.js)
+Code: [models/user.js](../../dev-tinder/src/models/user.js)
 
 ## Validations on Update: runValidators
 
@@ -183,7 +183,7 @@ const userSchema = new mongoose.Schema(
 
 - This will add `createdAt` and `updatedAt` to every doc and automatically update the values
 
-Code: [models/user.js](../dev-tinder/src/models/user.js)
+Code: [models/user.js](../../dev-tinder/src/models/user.js)
 
 ## API Level Validations
 
@@ -269,7 +269,7 @@ app.patch("/userbyidwithapivalidations/:userId", async (req, res) => {
 
 - Note the extra custom check: you can add any business rule at the API level, like limiting `skills` to a maximum of 10 entries
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)
 
 ## The validator Library
 
@@ -297,4 +297,4 @@ emailId: {
 
 - You can explore many more validations in the [validator documentation](https://www.npmjs.com/package/validator)
 
-Code: [models/user.js](../dev-tinder/src/models/user.js)
+Code: [models/user.js](../../dev-tinder/src/models/user.js)

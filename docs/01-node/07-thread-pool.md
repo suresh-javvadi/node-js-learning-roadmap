@@ -67,7 +67,7 @@ crypto.pbkdf2("password", "salt", 100000, 512, "sha512", () => {
 
 1, 2, 3, 4 give their output together, but 5 runs after them because the default thread pool size is 4.
 
-[app.js](../examples/07-thread-pool/app.js)
+[app.js](../../examples/07-thread-pool/app.js)
 
 ## Execution Order Is Not Guaranteed
 
@@ -99,7 +99,7 @@ Git Bash   : UV_THREADPOOL_SIZE=2 node adjust.js
 
 With a pool size of 2, tasks finish in pairs: 1 and 2 first, then 3 after a thread frees up. You can also raise the pool size to a bigger number if your production system involves heavy file handling or other tasks that benefit from additional threads.
 
-[adjust.js](../examples/07-thread-pool/adjust.js)
+[adjust.js](../../examples/07-thread-pool/adjust.js)
 
 ## API Calls Do Not Use the Thread Pool
 

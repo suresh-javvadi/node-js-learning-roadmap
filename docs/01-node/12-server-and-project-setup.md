@@ -13,7 +13,7 @@
   - **Author:** your name
 - `package.json` is the configuration of the project. It is like an index of the project: it tells the metadata of the project
 
-See the project's [package.json](../dev-tinder/package.json)
+See the project's [package.json](../../dev-tinder/package.json)
 
 ## What Is Express.js?
 
@@ -76,7 +76,7 @@ app.listen(3000, () => {
 
 - When you make a change and save the file, those changes do not reflect in the currently running server. You need to kill it (Ctrl+C) and restart the server (`node src/app.js`)
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)
 
 ## Request Handler
 
@@ -127,7 +127,7 @@ app.use("/home", (req, res) => {
 });
 ```
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)
 
 ## Auto-Restarting the Server: node --watch and Nodemon
 
@@ -152,4 +152,4 @@ Code: [app.js](../dev-tinder/src/app.js)
 - `npm run dev:nodemon`: runs the server using nodemon. Note that a global nodemon install is not recorded in `package.json`, so on a new machine this script needs `npm i -g nodemon` first
 - `npm run start`: runs the server using node (no restart on file changes)
 
-See the project's [package.json](../dev-tinder/package.json)
+See the project's [package.json](../../dev-tinder/package.json)

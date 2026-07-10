@@ -99,7 +99,7 @@ setImmediate
 fs.readFile
 ```
 
-[example-02.js](../examples/06-libuv-event-loop/example-02.js)
+[example-02.js](../../examples/06-libuv-event-loop/example-02.js)
 
 ## Event Loop Waiting at Poll Phase
 
@@ -151,7 +151,7 @@ setImmediate inside fs.readFile
 setTimeout inside fs.readFile
 ```
 
-[example-03.js](../examples/06-libuv-event-loop/example-03.js)
+[example-03.js](../../examples/06-libuv-event-loop/example-03.js)
 
 ## Nested process.nextTick
 
@@ -171,4 +171,4 @@ process.nextTick
 Inner process.nextTick
 ```
 
-[example-04.js](../examples/06-libuv-event-loop/example-04.js)
+[example-04.js](../../examples/06-libuv-event-loop/example-04.js)

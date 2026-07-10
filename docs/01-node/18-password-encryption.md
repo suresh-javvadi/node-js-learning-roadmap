@@ -32,7 +32,7 @@ const signupValidation = (req) => {
 module.exports = { signupValidation };
 ```
 
-Code: [utils/validation.js](../dev-tinder/src/utils/validation.js)
+Code: [utils/validation.js](../../dev-tinder/src/utils/validation.js)
 
 ## Encrypting with bcrypt
 
@@ -57,7 +57,7 @@ const encryptedPassword = await bcrypt.hash(password, 10);
   - Encryption is reversible (it can be decrypted)
   - Hash is one-way: nobody, including us, can turn the stored hash back into the password. That one-way property is exactly what makes it safe
 
-![Encrypted password stored in the database](../assets/images/18-encrypt-password.png)
+![Encrypted password stored in the database](../../assets/images/18-encrypt-password.png)
 
 - The full signup API with validation and encryption:
 
@@ -85,7 +85,7 @@ app.post("/usersignup", async (req, res) => {
 
 - Order matters: validate first, then hash. Hashing before validation wastes work on invalid data, and if the password is missing the hash call crashes before validation ever runs
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)
 
 ## Validating the Password on Login
 
@@ -138,4 +138,4 @@ flowchart TD
     style Login fill:transparent,stroke:#888
 ```
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)

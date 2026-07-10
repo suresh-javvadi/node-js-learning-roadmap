@@ -4,7 +4,7 @@
 
 - To pass dynamic data through the API request, you have many options. For passing the data, JSON is the best form
 
-![POST API with JSON body in Postman](../assets/images/16-post-api.png)
+![POST API with JSON body in Postman](../../assets/images/16-post-api.png)
 
 - When you send the data from Postman/client, the request is captured in the request parameter of the route/API, specifically in `req.body`
 
@@ -52,7 +52,7 @@ flowchart TD
     D --> F[Response sent to client]
 ```
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)
 
 ## Reading Data from the Database
 
@@ -99,7 +99,7 @@ app.get("/feed", async (req, res) => {
 - Note: `User.find({})` returns an empty array when there are no documents, and an empty array is truthy in JS. So check `users.length === 0`, not `!users` (which would never trigger)
 - There are many more model functions, you can refer to the [Mongoose documentation](https://mongoosejs.com/docs/api/model.html)
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)
 
 ## Deleting Data from the Database
 
@@ -124,7 +124,7 @@ app.delete("/userbyid", async (req, res) => {
 - It will find the document whose `_id` matches the passed id and delete the document
 - You can also pass it like this: `Model.findByIdAndDelete({ _id: userId })`
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)
 
 ## Updating Data in the Database
 
@@ -175,4 +175,4 @@ app.patch("/userbyemailid", async (req, res) => {
 
 - The 3rd parameter is an options object: `returnDocument: "before"` returns the document as it was before the update, `"after"` gives the document after the update
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)

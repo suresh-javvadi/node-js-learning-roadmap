@@ -51,7 +51,7 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 ```
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)
 
 ## JSON Web Token
 
@@ -127,7 +127,7 @@ token=exxxxxxxxxxxx.exxxxxxxxxxxxx.Gxxxxxx; Path=/; Expires=Wed, 08 Jul 2026 08:
 - You can send multiple cookies in a single response
 - The cookie has your info. With that cookie, anyone can access your data, so never ever share the cookies with anyone
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)
 
 ## Authentication Implementation
 
@@ -163,7 +163,7 @@ app.get("/profile", async (req, res) => {
 - Now only this API is secured: without the valid token, this API does not send the data
 - The problem: this same block (read cookie, verify token, find user) has to be repeated inside every protected route, which is redundant. A middleware solves this by writing the auth logic once and reusing it across routes
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)
 
 ### Securing All APIs with a Middleware
 
@@ -204,7 +204,7 @@ app.post("/sendconnectionrequest", userAuth, async (req, res) => {
 });
 ```
 
-Code: [app.js](../dev-tinder/src/app.js), [middlewares/auth.js](../dev-tinder/src/middlewares/auth.js)
+Code: [app.js](../../dev-tinder/src/app.js), [middlewares/auth.js](../../dev-tinder/src/middlewares/auth.js)
 
 ## Mongoose Schema Methods
 
@@ -253,4 +253,4 @@ userSchema.methods.validatePassword = async function (passwordInputByUser) {
 const isPasswordValid = await user.validatePassword(password);
 ```
 
-Code: [models/user.js](../dev-tinder/src/models/user.js), [app.js](../dev-tinder/src/app.js)
+Code: [models/user.js](../../dev-tinder/src/models/user.js), [app.js](../../dev-tinder/src/app.js)

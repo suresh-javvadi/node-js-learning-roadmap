@@ -17,7 +17,7 @@ fromUserId: {
 - You need to pass a valid registered model name: the exact string you passed to `mongoose.model("User", userSchema)`, not the MongoDB collection name (`users`)
 - It creates the link between `fromUserId` and `_id` in the User collection
 
-Code: [models/connectionRequest.js](../dev-tinder/src/models/connectionRequest.js)
+Code: [models/connectionRequest.js](../../dev-tinder/src/models/connectionRequest.js)
 
 ## Populate
 
@@ -79,7 +79,7 @@ const data = requests.map((row) => {
 });
 ```
 
-Code: [routes/user.js](../dev-tinder/src/routes/user.js)
+Code: [routes/user.js](../../dev-tinder/src/routes/user.js)
 
 ## Don't Over-Fetch in GET APIs
 

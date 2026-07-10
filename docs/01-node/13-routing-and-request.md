@@ -59,7 +59,7 @@ app.use("/home", (req, res) => {
 - Here, by changing the order, both routes work because it checks and sends the first matching request handler response
 - The order of writing routes is very important: it will change the server response
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)
 
 ## Request
 
@@ -73,7 +73,7 @@ Code: [app.js](../dev-tinder/src/app.js)
 - The best way to test the remaining methods is Postman
 - Install Postman, sign in, create a workspace, create a collection, and you can test all the requests and save them in the collections
 
-![Postman testing](../assets/images/13-postman.png)
+![Postman testing](../../assets/images/13-postman.png)
 
 - Here GET and POST give the same result, so we need to handle it in the server:
 
@@ -107,7 +107,7 @@ app.delete("/user", (req, res) => {
 - `app.use()` handles all HTTP methods and any route that starts with `/user` (like `/user/1` or `/user/profile`), so the method handlers are never reached
 - To fix this, always place your specific routes before the generic ones, and keep the generic `app.use()` last
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)
 
 ## Advanced Routing
 
@@ -156,4 +156,4 @@ app.get("/username/:userId", (req, res) => {
 - You can access them at `req.params`
 - You can also make more complex routes using multiple parameters, like `/user/:userId/:name/:password`: calling `/user/707/suresh/password` prints all three values in `req.params`
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)

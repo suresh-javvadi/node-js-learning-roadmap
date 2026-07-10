@@ -28,7 +28,7 @@ status: {
 },
 ```
 
-Code: [models/connectionRequest.js](../dev-tinder/src/models/connectionRequest.js)
+Code: [models/connectionRequest.js](../../dev-tinder/src/models/connectionRequest.js)
 
 ## Logical Queries
 
@@ -69,7 +69,7 @@ const existingRequest = await ConnectionRequestModel.findOne({
 });
 ```
 
-Code: [routes/request.js](../dev-tinder/src/routes/request.js)
+Code: [routes/request.js](../../dev-tinder/src/routes/request.js)
 
 ## pre Save Middleware
 
@@ -98,7 +98,7 @@ flowchart TD
     F --> G[JSON: request sent successfully]
 ```
 
-Code: [models/connectionRequest.js](../dev-tinder/src/models/connectionRequest.js), [routes/request.js](../dev-tinder/src/routes/request.js)
+Code: [models/connectionRequest.js](../../dev-tinder/src/models/connectionRequest.js), [routes/request.js](../../dev-tinder/src/routes/request.js)
 
 ## Handling Corner Cases
 
@@ -155,4 +155,4 @@ connectionRequestSchema.index({ fromUserId: 1, toUserId: 1 }, { unique: true });
 
 - Make indexes smartly and only when required. Indexes speed up reads, but they slow down writes (every insert or update must also update the index) and use extra storage. That is why creating indexes unnecessarily is not good, it becomes tough for the DB to handle
 
-Code: [models/connectionRequest.js](../dev-tinder/src/models/connectionRequest.js), [models/user.js](../dev-tinder/src/models/user.js)
+Code: [models/connectionRequest.js](../../dev-tinder/src/models/connectionRequest.js), [models/user.js](../../dev-tinder/src/models/user.js)

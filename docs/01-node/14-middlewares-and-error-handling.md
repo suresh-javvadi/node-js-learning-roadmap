@@ -217,7 +217,7 @@ flowchart TD
     E --> R2["500: Something went wrong!"]
 ```
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)
 
 ### Actual importance and real use case of middleware
 
@@ -311,7 +311,7 @@ app.get("/user/login", (req, res) => {
 });
 ```
 
-Code: [app.js](../dev-tinder/src/app.js), [middlewares/auth.js](../dev-tinder/src/middlewares/auth.js)
+Code: [app.js](../../dev-tinder/src/app.js), [middlewares/auth.js](../../dev-tinder/src/middlewares/auth.js)
 
 ## Error Handling
 
@@ -370,4 +370,4 @@ app.get("/trycatcherror", (req, res) => {
 
 - Use the error middleware at the end of the application, so if any error is not handled, it takes care of that without sending an error message that exposes the code
 
-Code: [app.js](../dev-tinder/src/app.js)
+Code: [app.js](../../dev-tinder/src/app.js)

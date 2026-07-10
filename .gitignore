@@ -1,4 +1,4 @@
 # Course resource files (copyrighted material)
-docs/*.pdf
+docs/**/*.pdf
 node_modules
 

@@ -165,7 +165,7 @@ main()
   .finally(() => client.close());
 ```
 
-[database.js](../examples/10-mongodb/database.js)
+[database.js](../../examples/10-mongodb/database.js)
 
 ## Using Mongoose (ODM)
 
