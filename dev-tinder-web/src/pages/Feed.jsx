@@ -13,7 +13,7 @@ const Feed = () => {
       const res = await axios.get("http://localhost:3000/user/feed", {
         withCredentials: true,
       });
-      dispatch(addFeed(res.data));
+      dispatch(addFeed(res.data?.data));
     } catch (error) {
       console.log(error);
     }
@@ -22,10 +22,23 @@ const Feed = () => {
   useEffect(() => {
     fetchFeed();
   }, []);
+
+  if (feed?.length <= 0) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen gap-3 px-4 text-center">
+        <div className="text-5xl">🎉</div>
+        <h1 className="text-2xl font-bold">No new users found</h1>
+        <p className="text-base-content/60 max-w-sm">
+          You've seen everyone for now. Check back later for new profiles.
+        </p>
+      </div>
+    );
+  }
+
   return (
     feed && (
       <div className="flex flex-col items-center justify-center min-h-screen">
-        <UserCard user={feed?.data?.[0]} />
+        <UserCard user={feed?.[0]} />
       </div>
     )
   );
