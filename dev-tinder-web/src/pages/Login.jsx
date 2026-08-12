@@ -9,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const handleLogin = async () => {
     try {
@@ -23,6 +24,7 @@ const Login = () => {
       dispatch(addUser(res.data?.data));
       navigate("/feed");
     } catch (error) {
+      setError(error.response?.data);
       console.error(error);
     }
   };
@@ -54,6 +56,7 @@ const Login = () => {
               placeholder="Enter your password"
             />
           </div>
+          <p className="text-error">{error}</p>
 
           <div className="card-actions mt-6 justify-center">
             <button className="btn btn-primary" onClick={handleLogin}>
