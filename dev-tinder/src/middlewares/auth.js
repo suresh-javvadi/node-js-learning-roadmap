@@ -25,7 +25,7 @@ const userAuth = async (req, res, next) => {
 
   try {
     if (!token) {
-      throw new Error("Invalid token!");
+      res.status(401).send("Unauthorized request, please login");
     }
     const decodedObj = await jwt.verify(token, "Sxxxxxx");
 
