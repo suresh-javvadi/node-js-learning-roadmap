@@ -65,6 +65,13 @@ const userSchema = new mongoose.Schema(
   },
 );
 
+userSchema.set("toJSON", {
+  transform: (doc, ret) => {
+    delete ret.password;
+    return ret;
+  },
+});
+
 userSchema.methods.getJWT = async function () {
   const token = await jwt.sign({ _id: this._id }, "Sxxxxxx", {
     expiresIn: "7d",
