@@ -6,6 +6,9 @@ const signupValidation = (req) => {
   if (!firstName) {
     throw new Error("First name is required");
   }
+  if (!lastName) {
+    throw new Error("Last name is required");
+  }
 
   if (!validator.isEmail(emailId)) {
     throw new Error("Please enter a valid email");
@@ -31,7 +34,11 @@ const validateProfileEditData = (req) => {
     allowedFields.includes(k),
   );
 
-  const isURLValid = validator.isURL(req.body?.photoUrl);
+  const { photoUrl } = req.body ?? {};
+
+  const isURLValid =
+    photoUrl === undefined ||
+    (typeof photoUrl === "string" && validator.isURL(photoUrl));
 
   return { isEditAllowed, isURLValid };
 };

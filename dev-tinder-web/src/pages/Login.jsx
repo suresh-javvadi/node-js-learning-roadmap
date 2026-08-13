@@ -31,6 +31,7 @@ const Login = () => {
       dispatch(addUser(res?.data?.data));
       navigate("/profile");
     } catch (error) {
+      setError(error.response?.data);
       console.error(error);
     }
   };
@@ -120,6 +121,7 @@ const Login = () => {
           <p
             className="text-center text-sm mt-4 text-primary cursor-pointer hover:underline"
             onClick={() => {
+              setError(null);
               setIsLoginForm((value) => !value);
             }}
           >

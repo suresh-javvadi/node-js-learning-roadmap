@@ -27,7 +27,12 @@ authRouter.post("/signup", async (req, res) => {
     res.cookie("token", token, { expires: new Date(Date.now() + 8 * 3600000) });
     res.json({ message: "User added successfully!", data: data });
   } catch (error) {
-    res.send("ERROR: " + error.message);
+    if (error.code === 11000) {
+      return res
+        .status(400)
+        .send("ERROR: An account with this email already exists");
+    }
+    res.status(400).send("ERROR: " + error.message);
   }
 });
 

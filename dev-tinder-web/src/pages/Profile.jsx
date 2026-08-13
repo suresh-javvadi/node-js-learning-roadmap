@@ -8,16 +8,28 @@ const Profile = () => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
-  const [firstName, setFirstName] = useState(user?.firstName);
-  const [lastName, setLastName] = useState(user?.lastName);
-  const [age, setAge] = useState(user?.age);
-  const [gender, setGender] = useState(user?.gender);
-  const [photoUrl, setPhotoUrl] = useState(user?.photoUrl);
-  const [about, setAbout] = useState(user?.about || "");
-  const [skills, setSkills] = useState((user?.skills || []).join(", "));
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
+  const [about, setAbout] = useState("");
+  const [skills, setSkills] = useState("");
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+
+  useEffect(() => {
+    if (!user) return;
+
+    setFirstName(user.firstName ?? "");
+    setLastName(user.lastName ?? "");
+    setAge(user.age ?? "");
+    setGender(user.gender ?? "");
+    setPhotoUrl(user.photoUrl ?? "");
+    setAbout(user.about ?? "");
+    setSkills((user.skills ?? []).join(", "));
+  }, [user]);
 
   useEffect(() => {
     if (!error && !success) return;
@@ -38,21 +50,24 @@ const Profile = () => {
     setError(null);
     setSuccess(null);
 
+    const payload = {
+      firstName,
+      photoUrl,
+      about,
+      skills: skills
+        .split(",")
+        .map((skill) => skill.trim())
+        .filter(Boolean),
+    };
+
+    if (lastName !== "") payload.lastName = lastName;
+    if (age !== "") payload.age = Number(age);
+    if (gender !== "") payload.gender = gender;
+
     try {
       const res = await axios.patch(
         "http://localhost:3000/profile/edit",
-        {
-          firstName,
-          lastName,
-          age: age === "" ? undefined : Number(age),
-          gender,
-          photoUrl,
-          about,
-          skills: skills
-            .split(",")
-            .map((skill) => skill.trim())
-            .filter(Boolean),
-        },
+        payload,
         { withCredentials: true },
       );
       dispatch(addUser(res.data?.data));
@@ -84,7 +99,7 @@ const Profile = () => {
               <label className="mb-1 block text-sm">Last Name</label>
               <input
                 type="text"
-                value={lastName || ""}
+                value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 className="input w-full focus:outline-none"
               />
