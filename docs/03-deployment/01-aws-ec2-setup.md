@@ -94,9 +94,12 @@ flowchart TD
     A[Create AWS account] --> B[Launch EC2 instance<br>Ubuntu, key pair]
     B --> C[Wait for instance<br>running + status checks passed]
     C --> D[Connect via SSH<br>using .pem key]
-    D --> E[Install nvm, then Node.js]
-    E --> F[Install and start Nginx]
-    F --> G[Copy build files<br>to /var/www/html]
-    G --> H[Open port 80 in<br>security group inbound rules]
-    H --> I[Access frontend<br>via public IP]
+    D --> E{Instance idle too long<br>and disconnects?}
+    E -- Yes --> F[Reconnect using<br>the same SSH command]
+    E -- No --> G
+    F --> G[Install nvm, then Node.js]
+    G --> H[Install and start Nginx]
+    H --> I[Copy build files<br>to /var/www/html]
+    I --> J[Open port 80 in<br>security group inbound rules]
+    J --> K[Access frontend<br>via public IP]
 ```
