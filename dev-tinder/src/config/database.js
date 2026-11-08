@@ -14,10 +14,12 @@ const mongoose = require("mongoose");
 
 // connectDB();
 
+if (process.env.DNS_SERVERS) {
+  require("dns").setServers(process.env.DNS_SERVERS.split(","));
+}
+
 const connectDB = async () => {
-  await mongoose.connect(
-    "mongodb+srv://sureshjavvadi:xxxxxxx@learningnode.p0acwhb.mongodb.net/dev_tinder",
-  );
+  await mongoose.connect(process.env.MONGO_URI);
 };
 
 module.exports = { connectDB };

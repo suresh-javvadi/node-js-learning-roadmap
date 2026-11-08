@@ -2,3 +2,4 @@
 docs/**/*.pdf
 node_modules
 
+.env

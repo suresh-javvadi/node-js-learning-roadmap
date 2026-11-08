@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 import { useSelector, useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import UserCard from "../components/UserCard";
@@ -66,7 +67,7 @@ const Profile = () => {
 
     try {
       const res = await axios.patch(
-        "http://localhost:3000/profile/edit",
+        BASE_URL + "/profile/edit",
         payload,
         { withCredentials: true },
       );

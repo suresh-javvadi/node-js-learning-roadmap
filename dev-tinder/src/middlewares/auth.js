@@ -25,9 +25,9 @@ const userAuth = async (req, res, next) => {
 
   try {
     if (!token) {
-      res.status(401).send("Unauthorized request, please login");
+      return res.status(401).send("Unauthorized request, please login");
     }
-    const decodedObj = await jwt.verify(token, "Sxxxxxx");
+    const decodedObj = await jwt.verify(token, process.env.JWT_SECRET);
 
     const { _id } = decodedObj;
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequests, removeRequest } from "../utils/requestsSlice";
@@ -10,7 +11,7 @@ const Requests = () => {
   const fetchRequests = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:3000/user/requests/received",
+        BASE_URL + "/user/requests/received",
         { withCredentials: true },
       );
       dispatch(addRequests(res?.data?.data));
@@ -22,7 +23,7 @@ const Requests = () => {
   const reviewRequest = async (status, requestId) => {
     try {
       await axios.patch(
-        `http://localhost:3000/request/review/${status}/${requestId}`,
+        `${BASE_URL}/request/review/${status}/${requestId}`,
         {},
         { withCredentials: true },
       );
